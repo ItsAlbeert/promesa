@@ -1,97 +1,106 @@
-/* --- Importar Google Fonts --- */
+/* ================================================== */
+/* IMPORTS & VARIABLES                */
+/* ================================================== */
+
+/* --- Fuentes --- */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap'); /* Fuente para título principal */
 
-/* --- Definición de Variables de Color y Diseño --- */
+/* --- Variables de Color (Tema Negro Moderno) --- */
 :root {
-  /* Paleta Oscura/Verde */
-  --color-neutral-900: #2C3E50; /* Fondo principal (Azul/gris oscuro) */
-  --color-light: #ECF0F1;       /* Texto claro principal */
-  --color-black: #2C3E50;       /* Usado para gradientes, igual que fondo */
-  --color-dark-rgb: 44, 62, 80;  /* RGB de --color-black para gradiente */
+  /* Colores Base */
+  --color-background-dark: #121212; /* Negro/Gris muy oscuro para fondos generales */
+  --color-background-medium: #1E1E1E; /* Gris oscuro para contenedores */
+  --color-background-light: #242424; /* Gris un poco más claro (ej. form) */
+  --color-text-light: #E0E0E0;     /* Texto principal claro */
+  --color-text-medium: #BDBDBD;     /* Texto secundario (ej. labels radio) */
+  --color-black: #000000;           /* Negro puro */
+  --color-black-rgb: 0, 0, 0;      /* RGB de negro puro */
 
-  --color-green-bright: #2ECC71; /* Verde esmeralda brillante */
-  --color-green-medium: #27AE60; /* Verde medio (botones) */
-  --color-green-dark: #229954;   /* Verde oscuro (hover botones) */
-  --color-green-pale: #ABEBC6;   /* Verde pálido (subtítulo) */
-  --color-gold-accent: #F1C40F;  /* Acento dorado (título principal opcional) */
+  /* Colores de Acento */
+  --color-accent-primary: #007BFF;       /* Azul eléctrico */
+  --color-accent-primary-dark: #0056b3;  /* Azul más oscuro (hover) */
+  --color-accent-secondary: #00BCD4;    /* Cyan brillante */
 
-  /* Variables de estructura Osmo (ajustar si es necesario) */
+  /* Variables de estructura (Osmo) */
   --container-padding: 5vw;
   --section-padding: 10vh;
-  --size-font: 16px; /* Tamaño base */
+  --size-font: 16px;
 }
 
-/* --- Estilos Base --- */
+/* ================================================== */
+/* ESTILOS BASE                     */
+/* ================================================== */
+
 body {
-  background-color: var(--color-neutral-900);
-  color: var(--color-light);
-  font-family: 'Roboto', sans-serif; /* Fuente por defecto */
+  background-color: var(--color-background-dark);
+  color: var(--color-text-light);
+  font-family: 'Roboto', sans-serif;
   font-size: var(--size-font);
   margin: 0;
   padding: 0;
-  /* Forzar que el fondo se aplique incluso si el contenido es corto */
   min-height: 100vh;
+  line-height: 1.6;
 }
+
+/* Estilo para páginas centradas (instrucciones, conclusiones) */
 body.page-centered {
   display: flex;
-  justify-content: center; /* Centrado horizontal */
-  align-items: center; /* Centrado vertical */
-  min-height: 100vh; /* Ocupar al menos toda la altura de la ventana */
-  padding: 20px; /* Mantenemos padding */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-/* --- Contenedor Principal --- */
-.container {
-  max-width: 800px;
-  margin: 30px auto; /* Centrado horizontal por defecto (para formulario y carta) */
-  padding: 30px; /* Más padding interno */
-  background-color: #34495E; /* Azul/gris un poco más claro que el fondo */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Sombra más notoria en oscuro */
-  border-radius: 8px;
-  text-align: center;
+/* Estilo específico para la página de inicio */
+body.index-page {
+  /* Degradado gris oscuro a negro */
+  background: linear-gradient(135deg, #282828 0%, #111111 70%, #000000 100%);
+  background-attachment: fixed; /* Fija el degradado durante el scroll */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-/* Anular margen vertical en páginas centradas */
-body.page-centered .container {
-  margin: 0 auto; /* Solo centrado horizontal */
-}
+/* ================================================== */
+/* ESTILOS PÁGINA PRINCIPAL (INDEX)      */
+/* ================================================== */
+
 /* --- Estructura Parallax --- */
 .parallax {
   width: 100%;
   position: relative;
-  overflow: hidden; /* Evita barras de scroll horizontales por el parallax */
+  overflow: hidden;
 }
 
 .parallax__header {
-  z-index: 2; /* Encima del contenido */
-  padding: var(--section-padding) var(--container-padding); /* Relleno superior/inferior y lateral */
+  z-index: 2;
+  padding: var(--section-padding) var(--container-padding);
   justify-content: center;
   align-items: center;
-  min-height: 100svh; /* Altura mínima de la ventana */
+  min-height: 100svh;
   display: flex;
-  position: relative; /* Necesario para elementos absolutos internos */
-  overflow: hidden; /* Contener capas */
+  position: relative;
+  overflow: hidden; /* Importante para que las capas no se salgan */
 }
 
 .parallax__content {
   padding: var(--section-padding) var(--container-padding);
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  min-height: 100svh; /* Altura mínima */
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh;
   display: flex;
-  flex-direction: column; /* Apilar subtítulo y botón */
-  position: relative; /* Mantener en flujo normal, pero permitir z-index si fuera necesario */
-  background-color: var(--color-neutral-900); /* Asegurar fondo oscuro */
+  flex-direction: column;
+  position: relative;
+  /* Fondo coincide con el final del degradado de body.index-page */
+  background-color: var(--color-black);
   text-align: center;
 }
 
-/* --- Elementos Visuales del Parallax --- */
+/* --- Capas Visuales Parallax --- */
 .parallax__visuals {
-  object-fit: cover; /* Escalar imagen manteniendo relación aspecto */
+  object-fit: cover;
   width: 100%;
-  max-width: none;
-  height: 120%; /* Más alto para permitir movimiento vertical */
+  height: 120%;
   position: absolute;
   top: 0;
   left: 0;
@@ -100,254 +109,285 @@ body.page-centered .container {
 .parallax__layers {
   object-fit: cover;
   width: 100%;
-  max-width: none;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden; /* Clave para contener las capas */
+  overflow: hidden;
 }
 
 .parallax__layer-img {
-  pointer-events: none; /* Las imágenes no son interactivas */
+  pointer-events: none;
   object-fit: cover;
   width: 100%;
-  max-width: none;
-  height: 117.5%; /* Más alto que el contenedor para el efecto */
+  height: 117.5%; /* Ligeramente más altas para moverse */
   position: absolute;
-  top: -17.5%; /* Empieza un poco más arriba para moverse hacia abajo */
+  top: -17.5%;
   left: 0;
 }
 
-/* --- Título Principal (en Parallax Header) --- */
+/* --- Título Principal Parallax --- */
 .parallax__layer-title {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100svh; /* Ocupa toda la altura inicial */
+  height: 100svh;
   display: flex;
   position: absolute;
   top: 0;
   left: 0;
-  pointer-events: none; /* El contenedor del título no bloquea clics */
+  pointer-events: none;
 }
 
 h1.parallax__title {
-  pointer-events: auto; /* El texto sí puede ser seleccionado */
+  pointer-events: auto;
   text-align: center;
-  margin: 0; /* Limpiar márgenes */
-  padding: 0 20px; /* Evitar que pegue a los bordes en pantallas pequeñas */
-  font-family: "Anton", sans-serif; /* Fuente reflexiva */
-  font-size: clamp(2.5rem, 8vw, 6rem); /* Tamaño responsive (min, pref, max) */
-  font-weight: 700;
+  margin: 0;
+  padding: 0 20px;
+  font-family: "Anton", sans-serif; /* Fuente impactante */
+  font-size: clamp(3rem, 10vw, 7rem); /* Tamaño responsive más grande */
+  font-weight: 400; /* Anton no suele necesitar bold */
   line-height: 1.1;
-  color: var(--color-light); /* Texto claro */
-  /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); Opcional: sombra para legibilidad */
-  position: relative; /* Necesario para z-index si se solapa */
-  z-index: 10; /* Asegurar que esté sobre las imágenes */
+  color: var(--color-text-light);
+  text-transform: uppercase; /* Mayúsculas */
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* Sombra para destacar */
+  position: relative;
+  z-index: 10; /* Encima de imágenes base */
 }
 
-/* --- Elementos de Transición/Fondo --- */
+/* --- Fade y Línea Inferior Parallax --- */
 .parallax__fade {
-  z-index: 30; /* Por encima de las capas de imagen */
+  z-index: 30;
   width: 100%;
-  height: 25%; /* Aumentar altura del degradado */
+  height: 25%;
   position: absolute;
   bottom: 0;
   left: 0;
-  /* Degradado de oscuro a transparente */
+  /* Degradado de negro a transparente */
   background: linear-gradient(to top,
-      rgba(var(--color-dark-rgb), 1) 0%,
-      rgba(var(--color-dark-rgb), 0.8) 25%,
-      rgba(var(--color-dark-rgb), 0.5) 50%,
-      rgba(var(--color-dark-rgb), 0.2) 75%,
+      rgba(var(--color-black-rgb), 1) 0%,
+      rgba(var(--color-black-rgb), 0.8) 25%,
+      rgba(var(--color-black-rgb), 0.5) 50%,
+      rgba(var(--color-black-rgb), 0.2) 75%,
       transparent 100%);
   pointer-events: none;
 }
 
 .parallax__black-line-overflow {
-  z-index: 20; /* Debajo del fade, encima de las imágenes */
-  background-color: var(--color-neutral-900); /* Línea del color de fondo */
+  z-index: 20;
+  background-color: var(--color-black); /* Línea negra */
   width: 100%;
-  height: 2px; /* Grosor de la línea */
+  height: 2px;
   position: absolute;
-  bottom: -1px; /* Posición exacta */
+  bottom: -1px;
   left: 0;
 }
 
-/* --- Contenido de la Segunda Sección --- */
+/* --- Contenido de la Segunda Sección (Index) --- */
+.subtitle-box {
+  display: inline-block; /* Ajustar al contenido */
+  padding: 15px 30px;
+  margin-bottom: 40px; /* Espacio antes del botón */
+  border: 1px solid var(--color-accent-primary); /* Borde azul */
+  border-radius: 8px;
+  background-color: rgba(30, 30, 30, 0.5); /* Fondo semitransparente */
+  backdrop-filter: blur(4px); /* Desenfoque del fondo (si es visible) */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 h2.content__subtitle {
   font-family: 'Roboto', sans-serif;
-  color: var(--color-green-pale); /* Verde pálido */
-  font-size: clamp(1.5rem, 4vw, 2.5rem); /* Tamaño responsive */
+  color: var(--color-text-light); /* Texto claro */
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 400;
-  margin-bottom: 30px; /* Espacio antes del botón */
+  margin: 0; /* Quitar margen por defecto del h2 */
 }
 
 button.content__button {
-  background-color: var(--color-green-medium); /* Verde medio */
+  /* Hereda de button general, pero podemos especializar */
+  background-color: var(--color-accent-primary);
   color: #ffffff;
   border: none;
-  padding: 14px 35px; /* Padding generoso */
-  font-size: clamp(1rem, 2.5vw, 1.2rem); /* Tamaño responsive */
+  padding: 14px 40px; /* Más padding */
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-family: 'Roboto', sans-serif;
-  font-weight: 700; /* Negrita */
-  border-radius: 30px; /* Botón redondeado */
+  font-weight: 700;
+  border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 20px; /* Espacio arriba */
-  text-transform: uppercase; /* Mayúsculas */
-  letter-spacing: 1px; /* Espaciado */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Más espaciado */
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Sombra azulada */
 }
 
 button.content__button:hover {
-  background-color: var(--color-green-dark); /* Verde oscuro al pasar el ratón */
-  transform: translateY(-3px); /* Efecto de elevación */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  background-color: var(--color-accent-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4); /* Sombra más intensa */
 }
 
-/* --- Media Queries para Ajustes Pequeños (Opcional) --- */
-@media (max-width: 768px) {
-  h1.parallax__title {
-    line-height: 1.2;
-  }
-  h2.content__subtitle {
-     margin-bottom: 25px;
-  }
-  button.content__button {
-    padding: 12px 30px;
-  }
+/* ================================================== */
+/* ESTILOS GENERALES OTRAS PÁGINAS           */
+/* ================================================== */
+
+/* --- Contenedor General --- */
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 35px; /* Más padding */
+  background-color: var(--color-background-medium); /* Gris oscuro */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Sombra más marcada */
+  border-radius: 10px; /* Bordes más redondeados */
+  text-align: center;
+  border-top: 3px solid var(--color-accent-primary); /* Detalle de borde superior */
 }
+/* Ajuste para contenedores en páginas centradas */
+body.page-centered .container {
+  margin: 0 auto;
+}
+
+/* --- Títulos Generales --- */
+/* (Estilos específicos para H1 y H2 dentro de .container si es necesario) */
+.container h1 {
+  color: var(--color-text-light);
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.container h2 {
+  color: var(--color-accent-secondary); /* Cyan para subtítulos generales */
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+/* --- Botón General (Otras páginas) --- */
 button {
-  background-color: #27AE60; /* Verde (Nephritis) */
+  background-color: var(--color-accent-primary);
   color: #ffffff;
   border: none;
-  padding: 12px 25px;
+  padding: 12px 30px;
   font-size: 1em;
   font-family: 'Roboto', sans-serif;
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 25px; /* Más margen */
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 button:hover {
-  background-color: #229954; /* Verde más oscuro al pasar el ratón */
+  background-color: var(--color-accent-primary-dark);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+/* ================================================== */
+/* ESTILOS FORMULARIO                 */
+/* ================================================== */
+
 form {
-  margin-top: 20px;
-  padding: 25px; /* Más padding */
+  margin-top: 30px;
+  padding: 30px;
   text-align: left;
-  background-color: #3E5368; /* Fondo oscuro ligeramente diferente para el form */
-  border-radius: 5px;
+  background-color: var(--color-background-light); /* Gris un poco más claro */
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
 }
+
 .pregunta-bloque {
   margin-bottom: 25px;
-  padding: 15px 0; /* Padding vertical, sin padding horizontal extra */
-  border-bottom: 1px solid #4A5D4E; /* Separador oscuro */
+  padding-bottom: 20px; /* Añadir padding inferior */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separador claro sutil */
+}
+.pregunta-bloque:last-child {
+  border-bottom: none; /* Quitar borde al último */
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 label.pregunta-texto {
   display: block;
-  margin-bottom: 12px; /* Más espacio */
-  font-weight: bold;
-  color: #EAECEE; /* Texto claro */
+  margin-bottom: 15px; /* Más espacio */
+  font-weight: 700; /* Más peso */
+  color: var(--color-text-light);
+  font-size: 1.05em;
 }
 
 .opciones-radio {
-  margin-left: 0; /* Quitar margen izquierdo */
-  padding-left: 10px; /* Indentar opciones ligeramente */
+  margin-left: 0;
+  padding-left: 10px;
 }
 
 .opciones-radio input[type="radio"] {
-  margin-right: 8px; /* Más espacio */
+  margin-right: 8px;
   cursor: pointer;
-  accent-color: #27AE60; /* Color del círculo del radio (navegadores modernos) */
+  accent-color: var(--color-accent-primary); /* Color azul para el check */
+  transform: scale(1.1); /* Ligeramente más grande */
 }
 
 .opciones-radio label {
-  margin-right: 15px;
+  margin-right: 20px; /* Más espacio */
   cursor: pointer;
   font-weight: normal;
-  color: #BDC3C7; /* Gris claro para opciones */
+  color: var(--color-text-medium); /* Gris medio */
+  transition: color 0.2s ease;
 }
-/* --- Página de Conclusiones --- */
+.opciones-radio input[type="radio"]:checked + label {
+  color: var(--color-text-light); /* Resaltar label seleccionado */
+  font-weight: bold;
+}
+.opciones-radio label:hover {
+    color: var(--color-accent-secondary); /* Resaltar con cyan al pasar el ratón */
+}
+
+
+/* ================================================== */
+/* ESTILOS CONCLUSIONES                 */
+/* ================================================== */
+
 .conclusion-contenedor {
-  background-color: #4A5D4E; /* Verde/gris oscuro */
-  border-left: 5px solid #2ECC71; /* Borde izquierdo verde esmeralda */
-  padding: 25px; /* Más padding */
-  margin-top: 20px;
-  border-radius: 5px;
+  background-color: var(--color-background-light); /* Mismo que form */
+  border-left: 5px solid var(--color-accent-secondary); /* Borde cyan */
+  padding: 30px;
+  margin: 25px 0; /* Margen vertical */
+  border-radius: 8px;
   text-align: left;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.3); /* Sombra interior sutil */
 }
 .conclusion-contenedor h2 {
   text-align: left;
+  margin-top: 0; /* Quitar margen superior */
   margin-bottom: 15px;
-  font-size: 1.4em;
-  color: #2ECC71; /* Mantener color verde */
+  font-size: 1.5em; /* Más grande */
+  color: var(--color-accent-secondary); /* Cyan */
+  font-weight: 700;
 }
 .conclusion-contenedor p {
-  color: #EAECEE; /* Texto claro dentro de la conclusión */
+  color: var(--color-text-light);
+  line-height: 1.7; /* Mayor interlineado */
 }
 
 
-/* --- Página de la Carta --- */
-.carta-contenido {
-  text-align: left;
-  padding: 25px; /* Más padding */
-  border: 1px solid #58D68D; /* Borde verde pálido */
-  border-radius: 5px;
-  background-color: #34495E; /* Mismo color que container */
-  margin-top: 20px;
-  color: #ECF0F1; /* Texto claro */
-}
-.carta-contenido p {
-  margin-bottom: 1em;
-}
+/* ================================================== */
+/* MEDIA QUERIES                    */
+/* ================================================== */
 
-/* --- Responsividad Simple (Ajustes para tema oscuro) --- */
 @media (max-width: 768px) {
-  body {
-      padding: 10px; /* Menos padding en móvil */
-  }
-  body.page-centered {
-      padding: 10px;
-  }
+  /* Ajustes generales */
+  body { font-size: 15px; }
+  .container { padding: 25px; }
+  form { padding: 20px; }
+  .conclusion-contenedor { padding: 25px; }
 
-  .container {
-      margin: 15px; /* Asegurar margen en móvil */
-      padding: 20px;
-  }
-  /* Asegurar que en páginas centradas no haya margen vertical */
-   body.page-centered .container {
-      margin: 0 15px; /* Margen horizontal */
-  }
+  /* Ajustes Index */
+  h1.parallax__title { line-height: 1.2; letter-spacing: 0.5px; }
+  h2.content__subtitle { margin-bottom: 25px; }
+  button.content__button { padding: 12px 30px; }
+  .subtitle-box { padding: 12px 25px; margin-bottom: 30px; }
 
-
-  h1.titulo-principal {
-      font-size: 2em;
-  }
-
-  h1 {
-      font-size: 1.8em;
-  }
-
-  h2 {
-      font-size: 1.3em;
-  }
-
-  button {
-      padding: 10px 20px;
-      font-size: 0.9em;
-  }
-
-  form {
-      padding: 15px;
-  }
-
-  .opciones-radio label {
-     display: block;
-     margin-bottom: 8px;
-     margin-right: 0;
-  }
+  /* Ajustes Formulario */
+  .opciones-radio label { display: block; margin-bottom: 10px; } /* Opciones una debajo de otra */
 }
