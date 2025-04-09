@@ -1,0 +1,197 @@
+/* --- Importar Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap');
+
+/* --- Definición de Variables de Color y Diseño --- */
+:root {
+  /* Paleta Oscura/Verde */
+  --color-neutral-900: #2C3E50; /* Fondo principal (Azul/gris oscuro) */
+  --color-light: #ECF0F1;       /* Texto claro principal */
+  --color-black: #2C3E50;       /* Usado para gradientes, igual que fondo */
+  --color-dark-rgb: 44, 62, 80;  /* RGB de --color-black para gradiente */
+
+  --color-green-bright: #2ECC71; /* Verde esmeralda brillante */
+  --color-green-medium: #27AE60; /* Verde medio (botones) */
+  --color-green-dark: #229954;   /* Verde oscuro (hover botones) */
+  --color-green-pale: #ABEBC6;   /* Verde pálido (subtítulo) */
+  --color-gold-accent: #F1C40F;  /* Acento dorado (título principal opcional) */
+
+  /* Variables de estructura Osmo (ajustar si es necesario) */
+  --container-padding: 5vw;
+  --section-padding: 10vh;
+  --size-font: 16px; /* Tamaño base */
+}
+
+/* --- Estilos Base --- */
+body {
+  background-color: var(--color-neutral-900);
+  color: var(--color-light);
+  font-family: 'Roboto', sans-serif; /* Fuente por defecto */
+  font-size: var(--size-font);
+  margin: 0;
+  padding: 0;
+  /* Forzar que el fondo se aplique incluso si el contenido es corto */
+  min-height: 100vh;
+}
+
+/* --- Estructura Parallax --- */
+.parallax {
+  width: 100%;
+  position: relative;
+  overflow: hidden; /* Evita barras de scroll horizontales por el parallax */
+}
+
+.parallax__header {
+  z-index: 2; /* Encima del contenido */
+  padding: var(--section-padding) var(--container-padding); /* Relleno superior/inferior y lateral */
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh; /* Altura mínima de la ventana */
+  display: flex;
+  position: relative; /* Necesario para elementos absolutos internos */
+  overflow: hidden; /* Contener capas */
+}
+
+.parallax__content {
+  padding: var(--section-padding) var(--container-padding);
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  min-height: 100svh; /* Altura mínima */
+  display: flex;
+  flex-direction: column; /* Apilar subtítulo y botón */
+  position: relative; /* Mantener en flujo normal, pero permitir z-index si fuera necesario */
+  background-color: var(--color-neutral-900); /* Asegurar fondo oscuro */
+  text-align: center;
+}
+
+/* --- Elementos Visuales del Parallax --- */
+.parallax__visuals {
+  object-fit: cover; /* Escalar imagen manteniendo relación aspecto */
+  width: 100%;
+  max-width: none;
+  height: 120%; /* Más alto para permitir movimiento vertical */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.parallax__layers {
+  object-fit: cover;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden; /* Clave para contener las capas */
+}
+
+.parallax__layer-img {
+  pointer-events: none; /* Las imágenes no son interactivas */
+  object-fit: cover;
+  width: 100%;
+  max-width: none;
+  height: 117.5%; /* Más alto que el contenedor para el efecto */
+  position: absolute;
+  top: -17.5%; /* Empieza un poco más arriba para moverse hacia abajo */
+  left: 0;
+}
+
+/* --- Título Principal (en Parallax Header) --- */
+.parallax__layer-title {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100svh; /* Ocupa toda la altura inicial */
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* El contenedor del título no bloquea clics */
+}
+
+h1.parallax__title {
+  pointer-events: auto; /* El texto sí puede ser seleccionado */
+  text-align: center;
+  margin: 0; /* Limpiar márgenes */
+  padding: 0 20px; /* Evitar que pegue a los bordes en pantallas pequeñas */
+  font-family: 'Playfair Display', serif; /* Fuente reflexiva */
+  font-size: clamp(2.5rem, 8vw, 6rem); /* Tamaño responsive (min, pref, max) */
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-light); /* Texto claro */
+  /* text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); Opcional: sombra para legibilidad */
+  position: relative; /* Necesario para z-index si se solapa */
+  z-index: 10; /* Asegurar que esté sobre las imágenes */
+}
+
+/* --- Elementos de Transición/Fondo --- */
+.parallax__fade {
+  z-index: 30; /* Por encima de las capas de imagen */
+  width: 100%;
+  height: 25%; /* Aumentar altura del degradado */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /* Degradado de oscuro a transparente */
+  background: linear-gradient(to top,
+      rgba(var(--color-dark-rgb), 1) 0%,
+      rgba(var(--color-dark-rgb), 0.8) 25%,
+      rgba(var(--color-dark-rgb), 0.5) 50%,
+      rgba(var(--color-dark-rgb), 0.2) 75%,
+      transparent 100%);
+  pointer-events: none;
+}
+
+.parallax__black-line-overflow {
+  z-index: 20; /* Debajo del fade, encima de las imágenes */
+  background-color: var(--color-neutral-900); /* Línea del color de fondo */
+  width: 100%;
+  height: 2px; /* Grosor de la línea */
+  position: absolute;
+  bottom: -1px; /* Posición exacta */
+  left: 0;
+}
+
+/* --- Contenido de la Segunda Sección --- */
+h2.content__subtitle {
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-green-pale); /* Verde pálido */
+  font-size: clamp(1.5rem, 4vw, 2.5rem); /* Tamaño responsive */
+  font-weight: 400;
+  margin-bottom: 30px; /* Espacio antes del botón */
+}
+
+button.content__button {
+  background-color: var(--color-green-medium); /* Verde medio */
+  color: #ffffff;
+  border: none;
+  padding: 14px 35px; /* Padding generoso */
+  font-size: clamp(1rem, 2.5vw, 1.2rem); /* Tamaño responsive */
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Negrita */
+  border-radius: 30px; /* Botón redondeado */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px; /* Espacio arriba */
+  text-transform: uppercase; /* Mayúsculas */
+  letter-spacing: 1px; /* Espaciado */
+}
+
+button.content__button:hover {
+  background-color: var(--color-green-dark); /* Verde oscuro al pasar el ratón */
+  transform: translateY(-3px); /* Efecto de elevación */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* --- Media Queries para Ajustes Pequeños (Opcional) --- */
+@media (max-width: 768px) {
+  h1.parallax__title {
+    line-height: 1.2;
+  }
+  h2.content__subtitle {
+     margin-bottom: 25px;
+  }
+  button.content__button {
+    padding: 12px 30px;
+  }
+}
