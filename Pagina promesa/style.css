@@ -1,5 +1,6 @@
 /* --- Importar Google Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 /* --- Definición de Variables de Color y Diseño --- */
 :root {
@@ -32,7 +33,29 @@ body {
   /* Forzar que el fondo se aplique incluso si el contenido es corto */
   min-height: 100vh;
 }
+body.page-centered {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  min-height: 100vh; /* Ocupar al menos toda la altura de la ventana */
+  padding: 20px; /* Mantenemos padding */
+}
 
+/* --- Contenedor Principal --- */
+.container {
+  max-width: 800px;
+  margin: 30px auto; /* Centrado horizontal por defecto (para formulario y carta) */
+  padding: 30px; /* Más padding interno */
+  background-color: #34495E; /* Azul/gris un poco más claro que el fondo */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Sombra más notoria en oscuro */
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Anular margen vertical en páginas centradas */
+body.page-centered .container {
+  margin: 0 auto; /* Solo centrado horizontal */
+}
 /* --- Estructura Parallax --- */
 .parallax {
   width: 100%;
@@ -114,7 +137,7 @@ h1.parallax__title {
   text-align: center;
   margin: 0; /* Limpiar márgenes */
   padding: 0 20px; /* Evitar que pegue a los bordes en pantallas pequeñas */
-  font-family: 'Playfair Display', serif; /* Fuente reflexiva */
+  font-family: "Anton", sans-serif; /* Fuente reflexiva */
   font-size: clamp(2.5rem, 8vw, 6rem); /* Tamaño responsive (min, pref, max) */
   font-weight: 700;
   line-height: 1.1;
@@ -193,5 +216,138 @@ button.content__button:hover {
   }
   button.content__button {
     padding: 12px 30px;
+  }
+}
+button {
+  background-color: #27AE60; /* Verde (Nephritis) */
+  color: #ffffff;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1em;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+button:hover {
+  background-color: #229954; /* Verde más oscuro al pasar el ratón */
+  transform: translateY(-2px);
+}
+form {
+  margin-top: 20px;
+  padding: 25px; /* Más padding */
+  text-align: left;
+  background-color: #3E5368; /* Fondo oscuro ligeramente diferente para el form */
+  border-radius: 5px;
+}
+.pregunta-bloque {
+  margin-bottom: 25px;
+  padding: 15px 0; /* Padding vertical, sin padding horizontal extra */
+  border-bottom: 1px solid #4A5D4E; /* Separador oscuro */
+}
+
+label.pregunta-texto {
+  display: block;
+  margin-bottom: 12px; /* Más espacio */
+  font-weight: bold;
+  color: #EAECEE; /* Texto claro */
+}
+
+.opciones-radio {
+  margin-left: 0; /* Quitar margen izquierdo */
+  padding-left: 10px; /* Indentar opciones ligeramente */
+}
+
+.opciones-radio input[type="radio"] {
+  margin-right: 8px; /* Más espacio */
+  cursor: pointer;
+  accent-color: #27AE60; /* Color del círculo del radio (navegadores modernos) */
+}
+
+.opciones-radio label {
+  margin-right: 15px;
+  cursor: pointer;
+  font-weight: normal;
+  color: #BDC3C7; /* Gris claro para opciones */
+}
+/* --- Página de Conclusiones --- */
+.conclusion-contenedor {
+  background-color: #4A5D4E; /* Verde/gris oscuro */
+  border-left: 5px solid #2ECC71; /* Borde izquierdo verde esmeralda */
+  padding: 25px; /* Más padding */
+  margin-top: 20px;
+  border-radius: 5px;
+  text-align: left;
+}
+.conclusion-contenedor h2 {
+  text-align: left;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+  color: #2ECC71; /* Mantener color verde */
+}
+.conclusion-contenedor p {
+  color: #EAECEE; /* Texto claro dentro de la conclusión */
+}
+
+
+/* --- Página de la Carta --- */
+.carta-contenido {
+  text-align: left;
+  padding: 25px; /* Más padding */
+  border: 1px solid #58D68D; /* Borde verde pálido */
+  border-radius: 5px;
+  background-color: #34495E; /* Mismo color que container */
+  margin-top: 20px;
+  color: #ECF0F1; /* Texto claro */
+}
+.carta-contenido p {
+  margin-bottom: 1em;
+}
+
+/* --- Responsividad Simple (Ajustes para tema oscuro) --- */
+@media (max-width: 768px) {
+  body {
+      padding: 10px; /* Menos padding en móvil */
+  }
+  body.page-centered {
+      padding: 10px;
+  }
+
+  .container {
+      margin: 15px; /* Asegurar margen en móvil */
+      padding: 20px;
+  }
+  /* Asegurar que en páginas centradas no haya margen vertical */
+   body.page-centered .container {
+      margin: 0 15px; /* Margen horizontal */
+  }
+
+
+  h1.titulo-principal {
+      font-size: 2em;
+  }
+
+  h1 {
+      font-size: 1.8em;
+  }
+
+  h2 {
+      font-size: 1.3em;
+  }
+
+  button {
+      padding: 10px 20px;
+      font-size: 0.9em;
+  }
+
+  form {
+      padding: 15px;
+  }
+
+  .opciones-radio label {
+     display: block;
+     margin-bottom: 8px;
+     margin-right: 0;
   }
 }
