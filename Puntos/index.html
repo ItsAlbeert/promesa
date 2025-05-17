@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulación de puntos - Tito</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    select, button { margin-top: 10px; margin-bottom: 10px; }
+    .ronda { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <h1>Simulación de Puntos - Tito</h1>
+  <label for="niño">Selecciona un niño:</label>
+  <select id="niño">
+    <option>Jorge</option>
+    <option>Leyre</option>
+    <option>Vega</option>
+  </select>
+
+  <div id="rondas"></div>
+
+  <button onclick="calcularTotal()">Calcular puntuación</button>
+  <p id="resultado"></p>
+
+  <script>
+    const puntosBase = 20;
+    const rondas = [
+      { texto: "Ronda 1", opciones: { A: 10, B: 2, C: 0 } },
+      { texto: "Ronda 2", opciones: { A: 8, B: 2, C: -4 } },
+      { texto: "Ronda 3", opciones: { A: 7, B: 3, C: -3 } },
+      { texto: "Ronda 4", opciones: { A: 9, B: 3, C: -4 } },
+      { texto: "Ronda 5", opciones: { A: 3, B: 7, C: -3 } },
+      { texto: "Ronda 6", opciones: { A: 6, B: 2, C: 0 } },
+      { texto: "Ronda 8", opciones: { A: 8, B: 2 } },
+      { texto: "Ronda 9", opciones: { A: 0, B: 0 } },
+      { texto: "Ronda 10", opciones: { A: 6, B: 1 } },
+    ];
+
+    const elecciones = {};
+
+    const contenedor = document.getElementById("rondas");
+    rondas.forEach((ronda, i) => {
+      const div = document.createElement("div");
+      div.classList.add("ronda");
+      div.innerHTML = `<strong>${ronda.texto}</strong><br>`;
+      for (const [letra, puntos] of Object.entries(ronda.opciones)) {
+        const id = `ronda${i}_opcion${letra}`;
+        div.innerHTML += `
+          <label><input type="radio" name="ronda${i}" value="${puntos}" id="${id}"> ${letra} (${puntos} puntos)</label><br>
+        `;
+      }
+      contenedor.appendChild(div);
+    });
+
+    function calcularTotal() {
+      let total = puntosBase;
+      for (let i = 0; i < rondas.length; i++) {
+        const radios = document.getElementsByName(`ronda${i}`);
+        let elegida = false;
+        for (const radio of radios) {
+          if (radio.checked) {
+            total += parseInt(radio.value);
+            elegida = true;
+            break;
+          }
+        }
+        if (!elegida) {
+          alert(`Falta seleccionar una opción en la Ronda ${i + 1}`);
+          return;
+        }
+      }
+
+      let estado = "";
+      if (total <= 40) estado = "Bajo estímulo. Posible desmotivación.";
+      else if (total <= 60) estado = "Estabilidad funcional.";
+      else if (total <= 75) estado = "Estimulación elevada. Posible dispersión.";
+      else if (total <= 90) estado = "Sistema saturado. Riesgo de fatiga.";
+      else estado = "Sobrecarga. Desconexión de entorno real.";
+
+      document.getElementById("resultado").innerHTML =
+        `<strong>Total:</strong> ${total}/100<br><strong>Estado del sistema:</strong> ${estado}`;
+    }
+  </script>
+</body>
+</html>
